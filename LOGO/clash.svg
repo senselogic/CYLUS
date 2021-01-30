@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="3095.4629"
-   height="2923.7957"
-   viewBox="0 0 3095.463 2923.7956"
+   width="3275.4626"
+   height="2850.0923"
+   viewBox="0 0 3275.4628 2850.0922"
    id="svg2"
    version="1.1"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -20,26 +20,23 @@
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
-     id="defs4"><marker
-   inkscape:stockid="Arrow1Lstart"
-   orient="auto"
-   refY="0"
-   refX="0"
-   id="Arrow1Lstart"
-   style="overflow:visible"
-   inkscape:isstock="true">
-  <path
-     id="path4170"
-     d="M 0,0 5,-5 -12.5,0 5,5 Z"
-     style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
-     transform="matrix(0.8,0,0,0.8,10,0)"
-     inkscape:connector-curvature="0" />
-</marker>
-
-	
-
-		
-	</defs>
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lstart"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lstart"
+       style="overflow:visible"
+       inkscape:isstock="true">
+      <path
+         id="path4170"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.00000003pt;stroke-opacity:1"
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -47,9 +44,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.12374369"
-     inkscape:cx="-3143.3343"
-     inkscape:cy="-2215.3757"
+     inkscape:zoom="0.35000001"
+     inkscape:cx="1143.7813"
+     inkscape:cy="1081.8328"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -59,15 +56,15 @@
      inkscape:window-x="0"
      inkscape:window-y="32"
      inkscape:window-maximized="1"
-     fit-margin-top="150"
-     fit-margin-left="150"
-     fit-margin-right="150"
-     fit-margin-bottom="150">
+     fit-margin-top="100"
+     fit-margin-left="100"
+     fit-margin-right="100"
+     fit-margin-bottom="100">
     <inkscape:grid
        type="xygrid"
        id="grid4149"
-       originx="90.924821"
-       originy="79.804969" />
+       originx="180.92484"
+       originy="56.101519" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -85,79 +82,64 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(90.924817,1791.6285)">
+     transform="translate(180.92482,1741.6285)">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:12.21750069px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#2b59d8;fill-opacity:1;stroke:#ffffff;stroke-width:18.32625198;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       x="69.483139"
-       y="955.57202"
+       style="font-style:normal;font-weight:normal;font-size:13.44123363px;line-height:0%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#2b59d8;fill-opacity:1;stroke:#ffffff;stroke-width:20.16185188;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="-72.136253"
+       y="980.49622"
        id="text4177"
        transform="scale(0.98208443,1.0182424)"><tspan
          sodipodi:role="line"
-         x="69.483139"
-         y="955.57202"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:796.28094482px;line-height:100%;font-family:'KenVector Future';-inkscape-font-specification:'KenVector Future';letter-spacing:-80px;fill:#2b59d8;fill-opacity:1;stroke:none;stroke-width:18.32625198;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         x="-72.136253"
+         y="980.49622"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:876.03826904px;line-height:100%;font-family:'KenVector Future';-inkscape-font-specification:'KenVector Future';letter-spacing:-88.01298523px;fill:#2b59d8;fill-opacity:1;stroke:none;stroke-width:20.16185188;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="tspan4199">Clash</tspan></text>
     <g
        id="g4558"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4560"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4562"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4564"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4566"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4568"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4570"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4572"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4574"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4576"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4578"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4580"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4582"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4584"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4586"
-       transform="translate(-3184.0323,-550.66402)">
-</g>
+       transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4713"
        transform="translate(-144.37754)">

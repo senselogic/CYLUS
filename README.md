@@ -31,10 +31,10 @@ clash [options] <file filter> <file filter> ...
 ### Example
 
 ```bash
-clash --missing --unused "CSS/*.css" "PHP//*.php"
+clash --missing --unused --verbose "CSS/*.css" "PHP//*.php"
 ```
 
-Reads the CSS and PHP files then list missing and unused CSS classes.
+Find declared and used classes in the CSS and PHP files, then list missing and unused CSS classes.
 
 ## Version
 
