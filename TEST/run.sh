@@ -1,3 +1,3 @@
 #!/bin/sh
 set -x
-../clash --missing --unused --verbose "CSS/*.css" "PHP//*.php"
+../clash --include "CSS/*.css" --include "PHP//*.php" --unused --missing --verbose

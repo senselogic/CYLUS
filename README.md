@@ -17,24 +17,26 @@ dmd -m64 clash.d
 ## Command line
 
 ```
-clash [options] <file filter> <file filter> ...
+clash [options]
 ```
 
 ### Options
 
 ```
---missing : find missing classes
+--include <file filter> : include matching files
+--exclude <file filter> : exclude matching files
 --unused : find unused classes
+--missing : find missing classes
 --verbose : show the processing messages
 ```
 
 ### Example
 
 ```bash
-clash --missing --unused --verbose "CSS/*.css" "PHP//*.php"
+clash --include "CSS/*.css" --include "PHP//*.php" --unused --missing --verbose
 ```
 
-Find declared and used classes in the CSS and PHP files, then list missing and unused CSS classes.
+List unused and missing classes in the matching CSS and PHP files.
 
 ## Version
 

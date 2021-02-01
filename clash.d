@@ -34,8 +34,12 @@ bool
     UnusedOptionIsEnabled,
     VerboseOptionIsEnabled;
 string[ string ]
+    CssFilePathMap,
     DeclaredClassNameMap,
-    UsedClassNameMap;
+    FileClassNameMap,
+    HtmlFilePathMap,
+    ListedClassNameMap,
+    QuotedClassNameMap;
 
 // -- FUNCTIONS
 
@@ -135,7 +139,73 @@ void SplitFilePathFilter(
 
 // ~~
 
-void ProcessCssFile(
+void FindFilePaths(
+    string file_path_filter,
+    bool file_path_is_added
+    )
+{
+    string
+        file_name_filter,
+        file_path,
+        folder_path;
+    SpanMode
+        span_mode;
+
+    SplitFilePathFilter( file_path_filter, folder_path, file_name_filter, span_mode );
+
+    foreach ( folder_entry; dirEntries( folder_path, file_name_filter, span_mode ) )
+    {
+        if ( folder_entry.isFile )
+        {
+            file_path = folder_entry.name;
+
+            if ( file_path.endsWith( ".css" ) )
+            {
+                if ( file_path_is_added )
+                {
+                    CssFilePathMap[ file_path ] = file_path;
+                }
+                else
+                {
+                    CssFilePathMap.remove( file_path );
+                }
+            }
+            else
+            {
+                if ( file_path_is_added )
+                {
+                    HtmlFilePathMap[ file_path ] = file_path;
+                }
+                else
+                {
+                    HtmlFilePathMap.remove( file_path );
+                }
+            }
+        }
+    }
+}
+
+// ~~
+
+void IncludeFilePaths(
+    string file_path_filter
+    )
+{
+    FindFilePaths( file_path_filter, true );
+}
+
+// ~~
+
+void ExcludeFilePaths(
+    string file_path_filter
+    )
+{
+    FindFilePaths( file_path_filter, true );
+}
+
+// ~~
+
+void FindDeclaredClassNames(
     string file_text
     )
 {
@@ -169,7 +239,8 @@ void ProcessCssFile(
                  || ( character >= 'a'
                       && character <= 'z' )
                  || ( character >= '0'
-                      && character <= '9' )
+                      && character <= '9'
+                      && post_character_index > 0 )
                  || character == '-'
                  || character == '_'
                  || character == '\\' )
@@ -188,7 +259,8 @@ void ProcessCssFile(
 
         class_name = part[ 0 .. post_character_index ].replace( "\\", "" );
 
-        if ( class_name.length > 0 )
+        if ( class_name.length > 0
+             && ( class_name in DeclaredClassNameMap ) is null )
         {
             if ( VerboseOptionIsEnabled )
             {
@@ -202,7 +274,22 @@ void ProcessCssFile(
 
 // ~~
 
-void ProcessOtherFile(
+void ParseCssFiles(
+    )
+{
+    string
+        css_file_text;
+
+    foreach ( css_file_path; CssFilePathMap )
+    {
+        css_file_text = ReadText( css_file_path );
+        FindDeclaredClassNames( css_file_text );
+    }
+}
+
+// ~~
+
+void FindListedClassNames(
     string file_text
     )
 {
@@ -214,7 +301,7 @@ void ProcessOtherFile(
     string
         part;
     string[]
-        class_name_array,
+        listed_class_name_array,
         part_array;
 
     part_array = file_text.split( "class=\"" );
@@ -231,24 +318,27 @@ void ProcessOtherFile(
         {
             character = part[ post_character_index ];
 
-            if ( character == '"' )
+            if ( character == '"'
+                 || character == '<' )
             {
                 break;
             }
         }
 
-        class_name_array = part[ 0 .. post_character_index ].split( ' ' );
+        listed_class_name_array = part[ 0 .. post_character_index ].split( ' ' );
 
-        foreach ( class_name; class_name_array )
+        foreach ( listed_class_name; listed_class_name_array )
         {
-            if ( class_name.length > 0 )
+            if ( listed_class_name.length > 0
+                 && ( listed_class_name in FileClassNameMap ) is null )
             {
                 if ( VerboseOptionIsEnabled )
                 {
-                    writeln( "Used : ", class_name );
+                    writeln( "Listed : ", listed_class_name );
                 }
 
-                UsedClassNameMap[ class_name ] = class_name;
+                FileClassNameMap[ listed_class_name ] = listed_class_name;
+                ListedClassNameMap[ listed_class_name ] = listed_class_name;
             }
         }
     }
@@ -256,72 +346,43 @@ void ProcessOtherFile(
 
 // ~~
 
-void ProcessFile(
-    string file_path
+void FindQuotedClassNames(
+    string file_text
     )
 {
-    string
-        file_text;
-
-    file_text = ReadText( file_path );
-
-    if ( file_path.endsWith( ".css" ) )
+    foreach ( declared_class_name; DeclaredClassNameMap )
     {
-        ProcessCssFile( file_text );
-    }
-    else
-    {
-        ProcessOtherFile( file_text );
-    }
-}
-
-// ~~
-
-void ProcessFiles(
-    string[] file_path_filter_array
-    )
-{
-    string
-        file_name_filter,
-        folder_path;
-    SpanMode
-        span_mode;
-
-    foreach ( file_path_filter; file_path_filter_array )
-    {
-        SplitFilePathFilter( file_path_filter, folder_path, file_name_filter, span_mode );
-
-        foreach ( folder_entry; dirEntries( folder_path, file_name_filter, span_mode ) )
+        if ( ( file_text.indexOf( "'" ~ declared_class_name ~ "'" ) >= 0
+               || file_text.indexOf( "'." ~ declared_class_name ~ "'" ) >= 0
+               || file_text.indexOf( "\"" ~ declared_class_name ~ "\"" ) >= 0
+               || file_text.indexOf( "\"." ~ declared_class_name ~ "\"" ) >= 0 )
+             && ( declared_class_name in FileClassNameMap ) is null )
         {
-            if ( folder_entry.isFile )
+            if ( VerboseOptionIsEnabled )
             {
-                ProcessFile( folder_entry.name );
+                writeln( "Quoted : ", declared_class_name );
             }
+
+            FileClassNameMap[ declared_class_name ] = declared_class_name;
+            QuotedClassNameMap[ declared_class_name ] = declared_class_name;
         }
     }
 }
 
 // ~~
 
-void FindMissingClassNames(
+void ParseHtmlFiles(
     )
 {
-    string[]
-        missing_class_name_array;
+    string
+        html_file_text;
 
-    foreach ( used_class_name; UsedClassNameMap )
+    foreach ( html_file_path; HtmlFilePathMap )
     {
-        if ( ( used_class_name in DeclaredClassNameMap ) is null )
-        {
-            missing_class_name_array ~= used_class_name;
-        }
-    }
-
-    sort( missing_class_name_array );
-
-    foreach ( missing_class_name; missing_class_name_array )
-    {
-        writeln( "Missing : ", missing_class_name );
+        html_file_text = ReadText( html_file_path );
+        FileClassNameMap = null;
+        FindListedClassNames( html_file_text );
+        FindQuotedClassNames( html_file_text );
     }
 }
 
@@ -335,7 +396,8 @@ void FindUnusedClassNames(
 
     foreach ( declared_class_name; DeclaredClassNameMap )
     {
-        if ( ( declared_class_name in UsedClassNameMap ) is null )
+        if ( ( declared_class_name in ListedClassNameMap ) is null
+             && ( declared_class_name in QuotedClassNameMap ) is null )
         {
             unused_class_name_array ~= declared_class_name;
         }
@@ -346,6 +408,49 @@ void FindUnusedClassNames(
     foreach ( unused_class_name; unused_class_name_array )
     {
         writeln( "Unused : ", unused_class_name );
+    }
+}
+
+// ~~
+
+void FindMissingClassNames(
+    )
+{
+    string[]
+        missing_class_name_array;
+
+    foreach ( listed_class_name; ListedClassNameMap )
+    {
+        if ( ( listed_class_name in DeclaredClassNameMap ) is null )
+        {
+            missing_class_name_array ~= listed_class_name;
+        }
+    }
+
+    sort( missing_class_name_array );
+
+    foreach ( missing_class_name; missing_class_name_array )
+    {
+        writeln( "Missing : ", missing_class_name );
+    }
+}
+
+// ~~
+
+void ProcessFiles(
+    )
+{
+    ParseCssFiles();
+    ParseHtmlFiles();
+
+    if ( UnusedOptionIsEnabled )
+    {
+        FindUnusedClassNames();
+    }
+
+    if ( MissingOptionIsEnabled )
+    {
+        FindMissingClassNames();
     }
 }
 
@@ -362,8 +467,8 @@ void main(
 
     argument_array = argument_array[ 1 .. $ ];
 
-    MissingOptionIsEnabled = false;
     UnusedOptionIsEnabled = false;
+    MissingOptionIsEnabled = false;
     VerboseOptionIsEnabled = false;
 
     while ( argument_array.length >= 1
@@ -373,44 +478,50 @@ void main(
 
         argument_array = argument_array[ 1 .. $ ];
 
-        if ( option == "--missing" )
-        {
-            MissingOptionIsEnabled = true;
-        }
-        else if ( option == "--unused" )
+        if ( option == "--unused" )
         {
             UnusedOptionIsEnabled = true;
+        }
+        else if ( option == "--missing" )
+        {
+            MissingOptionIsEnabled = true;
         }
         else if ( option == "--verbose" )
         {
             VerboseOptionIsEnabled = true;
         }
+        else if ( option == "--include"
+                  && argument_array.length >= 1 )
+        {
+            IncludeFilePaths( argument_array[ 0 ].GetLogicalPath() );
+
+            argument_array = argument_array[ 1 .. $ ];
+        }
+        else if ( option == "--exclude"
+                  && argument_array.length >= 1 )
+        {
+            ExcludeFilePaths( argument_array[ 0 ].GetLogicalPath() );
+
+            argument_array = argument_array[ 1 .. $ ];
+        }
     }
 
-    if ( argument_array.length > 0 )
+    if ( argument_array.length == 0 )
     {
-        ProcessFiles( argument_array );
-
-        if ( MissingOptionIsEnabled )
-        {
-            FindMissingClassNames();
-        }
-
-        if ( UnusedOptionIsEnabled )
-        {
-            FindUnusedClassNames();
-        }
+        ProcessFiles();
     }
     else
     {
         writeln( "Usage :" );
-        writeln( "    clash [options] <file filter> <file filter> ..." );
+        writeln( "    clash [options]" );
         writeln( "Options :" );
+        writeln( "    --include <file filter>" );
+        writeln( "    --exclude <file filter>" );
         writeln( "    --missing" );
         writeln( "    --unused" );
         writeln( "    --verbose" );
         writeln( "Examples :" );
-        writeln( "    clash --missing --unused --verbose \"CSS/*.css\" \"PHP//*.php\"" );
+        writeln( "    clash --include \"CSS/*.css\" --include \"PHP//*.php\" --unused --missing --verbose " );
 
         PrintError( "Invalid arguments : " ~ argument_array.to!string() );
     }
