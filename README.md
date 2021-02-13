@@ -25,6 +25,7 @@ clash [options]
 ```
 --include <file filter> : include matching files
 --exclude <file filter> : exclude matching files
+--ignore <class> : ignore this class
 --unused : find unused classes
 --missing : find missing classes
 --verbose : show the processing messages

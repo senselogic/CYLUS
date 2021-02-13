@@ -34,11 +34,12 @@ bool
     UnusedOptionIsEnabled,
     VerboseOptionIsEnabled;
 string[ string ]
+    AssignedClassNameMap,
     CssFilePathMap,
     DeclaredClassNameMap,
     FileClassNameMap,
     HtmlFilePathMap,
-    ListedClassNameMap,
+    IgnoredClassNameMap,
     QuotedClassNameMap;
 
 // -- FUNCTIONS
@@ -215,7 +216,7 @@ void FindDeclaredClassNames(
         part_index,
         post_character_index;
     string
-        class_name,
+        declared_class_name,
         part;
     string[]
         part_array;
@@ -257,17 +258,18 @@ void FindDeclaredClassNames(
             }
         }
 
-        class_name = part[ 0 .. post_character_index ].replace( "\\", "" );
+        declared_class_name = part[ 0 .. post_character_index ].replace( "\\", "" );
 
-        if ( class_name.length > 0
-             && ( class_name in DeclaredClassNameMap ) is null )
+        if ( declared_class_name.length > 0
+             && ( declared_class_name in DeclaredClassNameMap ) is null
+             && ( declared_class_name in IgnoredClassNameMap ) is null )
         {
             if ( VerboseOptionIsEnabled )
             {
-                writeln( "Declared : ", class_name );
+                writeln( "Declared : ", declared_class_name );
             }
 
-            DeclaredClassNameMap[ class_name ] = class_name;
+            DeclaredClassNameMap[ declared_class_name ] = declared_class_name;
         }
     }
 }
@@ -289,7 +291,7 @@ void ParseCssFiles(
 
 // ~~
 
-void FindListedClassNames(
+void FindAssignedClassNames(
     string file_text
     )
 {
@@ -301,7 +303,7 @@ void FindListedClassNames(
     string
         part;
     string[]
-        listed_class_name_array,
+        assigned_class_name_array,
         part_array;
 
     part_array = file_text.split( "class=\"" );
@@ -325,20 +327,21 @@ void FindListedClassNames(
             }
         }
 
-        listed_class_name_array = part[ 0 .. post_character_index ].split( ' ' );
+        assigned_class_name_array = part[ 0 .. post_character_index ].split( ' ' );
 
-        foreach ( listed_class_name; listed_class_name_array )
+        foreach ( assigned_class_name; assigned_class_name_array )
         {
-            if ( listed_class_name.length > 0
-                 && ( listed_class_name in FileClassNameMap ) is null )
+            if ( assigned_class_name.length > 0
+                 && ( assigned_class_name in FileClassNameMap ) is null
+                 && ( assigned_class_name in IgnoredClassNameMap ) is null )
             {
                 if ( VerboseOptionIsEnabled )
                 {
-                    writeln( "Listed : ", listed_class_name );
+                    writeln( "Assigned : ", assigned_class_name );
                 }
 
-                FileClassNameMap[ listed_class_name ] = listed_class_name;
-                ListedClassNameMap[ listed_class_name ] = listed_class_name;
+                FileClassNameMap[ assigned_class_name ] = assigned_class_name;
+                AssignedClassNameMap[ assigned_class_name ] = assigned_class_name;
             }
         }
     }
@@ -356,7 +359,8 @@ void FindQuotedClassNames(
                || file_text.indexOf( "'." ~ declared_class_name ~ "'" ) >= 0
                || file_text.indexOf( "\"" ~ declared_class_name ~ "\"" ) >= 0
                || file_text.indexOf( "\"." ~ declared_class_name ~ "\"" ) >= 0 )
-             && ( declared_class_name in FileClassNameMap ) is null )
+             && ( declared_class_name in FileClassNameMap ) is null
+             && ( declared_class_name in IgnoredClassNameMap ) is null )
         {
             if ( VerboseOptionIsEnabled )
             {
@@ -381,7 +385,7 @@ void ParseHtmlFiles(
     {
         html_file_text = ReadText( html_file_path );
         FileClassNameMap = null;
-        FindListedClassNames( html_file_text );
+        FindAssignedClassNames( html_file_text );
         FindQuotedClassNames( html_file_text );
     }
 }
@@ -396,7 +400,7 @@ void FindUnusedClassNames(
 
     foreach ( declared_class_name; DeclaredClassNameMap )
     {
-        if ( ( declared_class_name in ListedClassNameMap ) is null
+        if ( ( declared_class_name in AssignedClassNameMap ) is null
              && ( declared_class_name in QuotedClassNameMap ) is null )
         {
             unused_class_name_array ~= declared_class_name;
@@ -419,11 +423,11 @@ void FindMissingClassNames(
     string[]
         missing_class_name_array;
 
-    foreach ( listed_class_name; ListedClassNameMap )
+    foreach ( assigned_class_name; AssignedClassNameMap )
     {
-        if ( ( listed_class_name in DeclaredClassNameMap ) is null )
+        if ( ( assigned_class_name in DeclaredClassNameMap ) is null )
         {
-            missing_class_name_array ~= listed_class_name;
+            missing_class_name_array ~= assigned_class_name;
         }
     }
 
@@ -478,19 +482,7 @@ void main(
 
         argument_array = argument_array[ 1 .. $ ];
 
-        if ( option == "--unused" )
-        {
-            UnusedOptionIsEnabled = true;
-        }
-        else if ( option == "--missing" )
-        {
-            MissingOptionIsEnabled = true;
-        }
-        else if ( option == "--verbose" )
-        {
-            VerboseOptionIsEnabled = true;
-        }
-        else if ( option == "--include"
+        if ( option == "--include"
                   && argument_array.length >= 1 )
         {
             IncludeFilePaths( argument_array[ 0 ].GetLogicalPath() );
@@ -503,6 +495,25 @@ void main(
             ExcludeFilePaths( argument_array[ 0 ].GetLogicalPath() );
 
             argument_array = argument_array[ 1 .. $ ];
+        }
+        else if ( option == "--ignore"
+                  && argument_array.length >= 1 )
+        {
+            IgnoredClassNameMap[ argument_array[ 0 ] ] = argument_array[ 0 ];
+
+            argument_array = argument_array[ 1 .. $ ];
+        }
+        else if ( option == "--unused" )
+        {
+            UnusedOptionIsEnabled = true;
+        }
+        else if ( option == "--missing" )
+        {
+            MissingOptionIsEnabled = true;
+        }
+        else if ( option == "--verbose" )
+        {
+            VerboseOptionIsEnabled = true;
         }
     }
 

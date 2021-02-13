@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="ignored">
     <body class="width-100% container <# .IsDark ? 'text-color-white' : 'text-color-black' #>">
         <div class="width-1/2">
             <h1 class="row title">
