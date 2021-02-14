@@ -1,8 +1,8 @@
-![](https://github.com/senselogic/CLASH/blob/master/LOGO/clash.png)
+![](https://github.com/senselogic/CHYLE/blob/master/LOGO/chyle.png)
 
-# Clash
+# Chyle
 
-CSS class usage checker.
+Style sheet usage checker.
 
 ## Installation
 
@@ -11,13 +11,13 @@ Install the [DMD 2 compiler](https://dlang.org/download.html) (using the MinGW s
 Build the executable with the following command line :
 
 ```bash
-dmd -m64 clash.d
+dmd -m64 chyle.d
 ```
 
 ## Command line
 
 ```
-clash [options]
+chyle [options]
 ```
 
 ### Options
@@ -34,7 +34,7 @@ clash [options]
 ### Example
 
 ```bash
-clash --include "CSS/*.css" --include "PHP//*.php" --unused --missing --verbose
+chyle --include "CSS/*.css" --include "PHP//*.php" --unused --missing --verbose
 ```
 
 List unused and missing classes in the matching CSS and PHP files.

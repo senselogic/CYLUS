@@ -1,4 +1,4 @@
 #!/bin/sh
 set -x
-dmd -m64 clash.d
+dmd -m64 chyle.d
 rm *.o

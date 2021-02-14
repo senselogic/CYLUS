@@ -1,21 +1,21 @@
 /*
-    This file is part of the Clash distribution.
+    This file is part of the Chyle distribution.
 
-    https://github.com/senselogic/CLASH
+    https://github.com/senselogic/CHYLE
 
     Copyright (C) 2017 Eric Pelzer (ecstatic.coder@gmail.com)
 
-    Clash is free software: you can redistribute it and/or modify
+    Chyle is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, version 3.
 
-    Clash is distributed in the hope that it will be useful,
+    Chyle is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with Clash.  If not, see <http://www.gnu.org/licenses/>.
+    along with Chyle.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 // -- IMPORTS
@@ -524,7 +524,7 @@ void main(
     else
     {
         writeln( "Usage :" );
-        writeln( "    clash [options]" );
+        writeln( "    chyle [options]" );
         writeln( "Options :" );
         writeln( "    --include <file filter>" );
         writeln( "    --exclude <file filter>" );
@@ -532,7 +532,7 @@ void main(
         writeln( "    --unused" );
         writeln( "    --verbose" );
         writeln( "Examples :" );
-        writeln( "    clash --include \"CSS/*.css\" --include \"PHP//*.php\" --unused --missing --verbose " );
+        writeln( "    chyle --include \"CSS/*.css\" --include \"PHP//*.php\" --unused --missing --verbose " );
 
         PrintError( "Invalid arguments : " ~ argument_array.to!string() );
     }

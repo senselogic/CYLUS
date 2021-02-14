@@ -15,8 +15,8 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="clash.svg"
-   inkscape:export-filename="/home/eric/data/WORK/PROJECT/TOOL/CLASH/LOGO/clash.png"
+   sodipodi:docname="chyle.svg"
+   inkscape:export-filename="/home/eric/data/WORK/PROJECT/TOOL/CHYLE/LOGO/chyle.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -45,7 +45,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.35000001"
-     inkscape:cx="1143.7813"
+     inkscape:cx="353.78132"
      inkscape:cy="1081.8328"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -63,8 +63,8 @@
     <inkscape:grid
        type="xygrid"
        id="grid4149"
-       originx="180.92484"
-       originy="56.101519" />
+       originx="180.92485"
+       originy="56.101478" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -94,7 +94,7 @@
          x="-72.136253"
          y="980.49622"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:876.03826904px;line-height:100%;font-family:'KenVector Future';-inkscape-font-specification:'KenVector Future';letter-spacing:-88.01298523px;fill:#2b59d8;fill-opacity:1;stroke:none;stroke-width:20.16185188;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         id="tspan4199">Clash</tspan></text>
+         id="tspan4199">Chyle</tspan></text>
     <g
        id="g4558"
        transform="translate(-3184.0323,-550.66402)" />
@@ -142,7 +142,7 @@
        transform="translate(-3184.0323,-550.66402)" />
     <g
        id="g4713"
-       transform="translate(-144.37754)">
+       transform="translate(-144.37761)">
       <path
          style="fill:#193689;fill-opacity:1;stroke-width:3.69900274"
          id="path4546"
