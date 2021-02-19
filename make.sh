@@ -1,4 +1,4 @@
 #!/bin/sh
 set -x
-dmd -m64 chyle.d
+dmd -m64 cylus.d
 rm *.o

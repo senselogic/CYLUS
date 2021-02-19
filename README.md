@@ -1,6 +1,6 @@
-![](https://github.com/senselogic/CHYLE/blob/master/LOGO/chyle.png)
+![](https://github.com/senselogic/CYLUS/blob/master/LOGO/cylus.png)
 
-# Chyle
+# Cylus
 
 Style sheet usage checker.
 
@@ -11,13 +11,13 @@ Install the [DMD 2 compiler](https://dlang.org/download.html) (using the MinGW s
 Build the executable with the following command line :
 
 ```bash
-dmd -m64 chyle.d
+dmd -m64 cylus.d
 ```
 
 ## Command line
 
 ```
-chyle [options]
+cylus [options]
 ```
 
 ### Options
@@ -34,7 +34,7 @@ chyle [options]
 ### Example
 
 ```bash
-chyle --include "CSS/*.css" --include "PHP//*.php" --unused --missing --verbose
+cylus --include "CSS/*.css" --include "PHP//*.php" --unused --missing --verbose
 ```
 
 List unused and missing classes in the matching CSS and PHP files.
