@@ -1,13 +1,16 @@
 <!DOCTYPE html>
-<html class="ignored">
+<html>
     <body class="width-100% container <# .IsDark ? 'text-color-white' : 'text-color-black' #>">
         <div class="width-1/2">
             <h1 class="row title">
                 Heading
             </h1>
             <p class="row paragraph">
-                Paragraph.
+                Paragraph
             </p>
         </div>
+        <button>
+            Button
+        </button>
     </body>
 </html>

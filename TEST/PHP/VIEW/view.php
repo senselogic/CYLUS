@@ -6,7 +6,7 @@
                 Heading
             </h1>
             <p class="row paragraph">
-                Paragraph.
+                Paragraph
             </p>
         </div>
     </body>

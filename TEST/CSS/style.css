@@ -37,3 +37,13 @@
 {
     color: white;
 }
+
+.button
+{
+    background-image: url( "button-background.jpg" );
+}
+
+.button.selected
+{
+    background-image: url( "selected-button-background.jpg" );
+}

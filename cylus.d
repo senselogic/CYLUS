@@ -211,7 +211,8 @@ void FindDeclaredClassNames(
     )
 {
     char
-        character;
+        character,
+        post_character;
     long
         part_index,
         post_character_index;
@@ -228,6 +229,7 @@ void FindDeclaredClassNames(
           ++part_index )
     {
         part = part_array[ part_index ];
+        post_character = 0;
 
         for ( post_character_index = 0;
               post_character_index < part.length;
@@ -254,13 +256,17 @@ void FindDeclaredClassNames(
             }
             else
             {
+                post_character = character;
+
                 break;
             }
         }
 
         declared_class_name = part[ 0 .. post_character_index ].replace( "\\", "" );
 
-        if ( declared_class_name.length > 0
+        if ( post_character != '"'
+             && post_character != '\''
+             && declared_class_name.length > 0
              && ( declared_class_name in DeclaredClassNameMap ) is null
              && ( declared_class_name in IgnoredClassNameMap ) is null )
         {
@@ -499,9 +505,12 @@ void main(
         else if ( option == "--ignore"
                   && argument_array.length >= 1 )
         {
-            IgnoredClassNameMap[ argument_array[ 0 ] ] = argument_array[ 0 ];
+            while ( !argument_array[ 0 ].startsWith( "--" ) )
+            {
+                IgnoredClassNameMap[ argument_array[ 0 ] ] = argument_array[ 0 ];
 
-            argument_array = argument_array[ 1 .. $ ];
+                argument_array = argument_array[ 1 .. $ ];
+            }
         }
         else if ( option == "--unused" )
         {

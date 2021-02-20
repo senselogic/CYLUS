@@ -25,7 +25,7 @@ cylus [options]
 ```
 --include <file filter> : include matching files
 --exclude <file filter> : exclude matching files
---ignore <class> : ignore this class
+--ignore <class> <class> ... : ignore those classes
 --unused : find unused classes
 --missing : find missing classes
 --verbose : show the processing messages
@@ -34,10 +34,10 @@ cylus [options]
 ### Example
 
 ```bash
-cylus --include "CSS/*.css" --include "PHP//*.php" --unused --missing --verbose
+cylus --include "CSS/*.css" --include "PHP//*.php" --ignored selected --unused --missing --verbose
 ```
 
-List unused and missing classes in the matching CSS and PHP files.
+List unused and missing classes in the matching CSS and PHP files, ignoring the `selected` class.
 
 ## Version
 
