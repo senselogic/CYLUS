@@ -2,7 +2,7 @@
 
 # Cylus
 
-Style sheet usage checker.
+CSS class usage checker.
 
 ## Installation
 

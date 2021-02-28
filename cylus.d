@@ -23,7 +23,7 @@
 import core.stdc.stdlib : exit;
 import std.algorithm : sort;
 import std.conv : to;
-import std.file : dirEntries, readText, FileException, SpanMode;
+import std.file : dirEntries, readText, SpanMode;
 import std.stdio : writeln;
 import std.string : endsWith, indexOf, lastIndexOf, replace, split, startsWith;
 
@@ -66,11 +66,11 @@ void Abort(
 
 void Abort(
     string message,
-    FileException file_exception
+    Exception exception
     )
 {
     PrintError( message );
-    PrintError( file_exception.msg );
+    PrintError( exception.msg );
 
     exit( -1 );
 }
@@ -81,7 +81,7 @@ string GetLogicalPath(
     string path
     )
 {
-    return path.replace( "\\", "/" );
+    return path.replace( '\\', '/' );
 }
 
 // ~~
@@ -99,9 +99,9 @@ string ReadText(
     {
         file_text = file_path.readText();
     }
-    catch ( FileException file_exception )
+    catch ( Exception exception )
     {
-        Abort( "Can't read file : " ~ file_path, file_exception );
+        Abort( "Can't read file : " ~ file_path, exception );
     }
 
     return file_text;
@@ -201,7 +201,7 @@ void ExcludeFilePaths(
     string file_path_filter
     )
 {
-    FindFilePaths( file_path_filter, true );
+    FindFilePaths( file_path_filter, false );
 }
 
 // ~~
@@ -524,6 +524,10 @@ void main(
         {
             VerboseOptionIsEnabled = true;
         }
+        else
+        {
+            Abort( "Invalid option : " ~ option );
+        }
     }
 
     if ( argument_array.length == 0 )
@@ -541,7 +545,7 @@ void main(
         writeln( "    --unused" );
         writeln( "    --verbose" );
         writeln( "Examples :" );
-        writeln( "    cylus --include \"CSS/*.css\" --include \"PHP//*.php\" --unused --missing --verbose " );
+        writeln( "    cylus --include \"CSS/*.css\" --include \"PHP//*.php\" --unused --missing --verbose" );
 
         PrintError( "Invalid arguments : " ~ argument_array.to!string() );
     }
